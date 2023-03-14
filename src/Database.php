@@ -18,10 +18,6 @@ class Database
         $user = getenv('DB_USER');
         $password = getenv('DB_PASSWORD');
 
-        if (!$this->createdMigrate) {
-            $this->migrate();
-        }
-
         $this->connect = null;
         try {
             $this->connect = new PDO("mysql:host=" . $host . ";dbname=" . $dbname, $user, $password);
@@ -29,6 +25,10 @@ class Database
         } catch (PDOException $e) {
             echo "connection failed: " . $e->getMessage();
         }
+        if (!$this->createdMigrate) {
+            $this->migrate();
+        }
+
     }
 
     public static function loadEnv()
