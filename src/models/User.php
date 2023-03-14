@@ -32,12 +32,6 @@ class User
         }
     }
 
-    public function isAuthenticated(): bool
-    {
-        // Проверка наличия сессии пользователя
-        return isset($_SESSION['user_username']);
-    }
-
     public static function isAdmin(): bool
     {
         if (!isset($_SESSION['user_username'])) {
