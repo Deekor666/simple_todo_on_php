@@ -48,4 +48,20 @@ class User
         }
         return true;
     }
+
+    public function getUserByUsername($username)
+    {
+        $query = "SELECT * FROM users WHERE username = :username";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute(['username' => $username]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function createUser($hashedPassword, $username)
+    {
+        $stmt = $this->db->prepare("INSERT INTO users (password, username) VALUES (?, ?)");
+        $stmt->execute([$hashedPassword, $username]);
+        return $this->db->lastInsertId();
+    }
+
 }
