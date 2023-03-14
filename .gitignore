@@ -2,3 +2,4 @@
 /src/mysql-data
 /src/nginx-logs
 /vendor
+/src/nginx.conf
