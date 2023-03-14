@@ -28,7 +28,7 @@ class Database
 
     private static function loadEnv()
     {
-        $dotenv = fopen('../.env', 'r');
+        $dotenv = fopen(__DIR__ . '/../.env', 'r');
         while ($line = fgets($dotenv)) {
             putenv(trim($line));
         }
