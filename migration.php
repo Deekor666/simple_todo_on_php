@@ -1,6 +1,11 @@
 <?php
 
-$database = new \App\Database();
+use App\Database;
+
+require_once __DIR__ . '/src/Database.php';
+
+
+$database = new Database();
 
 $sqlTasks = "create table myapp.tasks
 (
