@@ -26,7 +26,7 @@ class Database
         }
     }
 
-    private static function loadEnv()
+    public static function loadEnv()
     {
         $dotenv = fopen(PROJECT_DIR . '/.env', 'r');
         while ($line = fgets($dotenv)) {
