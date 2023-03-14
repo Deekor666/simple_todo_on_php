@@ -7,6 +7,7 @@ use PDOException;
 
 class Database
 {
+    private bool $createdMigrate = false;
     public ?PDO $connect;
 
     public function __construct()
@@ -16,6 +17,10 @@ class Database
         $dbname = getenv('DB_NAME');
         $user = getenv('DB_USER');
         $password = getenv('DB_PASSWORD');
+
+        if (!$this->createdMigrate) {
+            $this->migrate();
+        }
 
         $this->connect = null;
         try {
@@ -33,5 +38,33 @@ class Database
             putenv(trim($line));
         }
         fclose($dotenv);
+    }
+
+    private function migrate()
+    {
+        $sqlTasks = "create table myapp.tasks
+        (
+            id       int auto_increment
+                primary key,
+            text     text                 null,
+            username mediumtext           null,
+            status   tinyint(1) default 0 null
+        );";
+
+        $sqlUsers = "create table myapp.users
+        (
+            id       int auto_increment
+                primary key,
+            password mediumtext null,
+            username mediumtext null
+        );";
+
+        try {
+            $this->connect->query($sqlUsers);
+            $this->connect->query($sqlTasks);
+        } catch (\Exception $e) {
+            var_dump($e->getMessage());
+        }
+        $this->createdMigrate = true;
     }
 }
