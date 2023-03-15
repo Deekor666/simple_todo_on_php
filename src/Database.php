@@ -12,10 +12,10 @@ class Database
     public function __construct()
     {
         self::loadEnv();
-        $host = getenv('DB_HOST');
-        $dbname = getenv('DB_NAME');
-        $user = getenv('DB_USER');
-        $password = getenv('DB_PASSWORD');
+        $host = getenv('MYSQL_HOST');
+        $dbname = getenv('MYSQL_DATABASE');
+        $user = getenv('MYSQL_USER');
+        $password = getenv('MYSQL_PASSWORD');
 
         $this->connect = null;
         try {
